@@ -12,19 +12,35 @@ export default function Home() {
         <div className="--container my-20 space-y-20">
             <p>
                 Sitekey:
-                <input value={sitekey} onChange={(event) => setSitekey(event.target.value)} className="bg-gray-800 w-80 ml-8" />
+                <input
+                    value={sitekey}
+                    onChange={(event) => setSitekey(event.target.value)}
+                    className="bg-gray-800 w-80 ml-8"
+                />
             </p>
             <p>
                 Action:
-                <input value={action} onChange={(event) => setAction(event.target.value)} className="bg-gray-800 w-80 ml-8" />
+                <input
+                    value={action}
+                    onChange={(event) => setAction(event.target.value)}
+                    className="bg-gray-800 w-80 ml-8"
+                />
             </p>
             <p>
                 cData:
-                <input value={cdata} onChange={(event) => setCData(event.target.value)} className="bg-gray-800 w-80 ml-8" />
+                <input
+                    value={cdata}
+                    onChange={(event) => setCData(event.target.value)}
+                    className="bg-gray-800 w-80 ml-8"
+                />
             </p>
             <p>
                 Theme:
-                <input value={theme} onChange={(event) => setTheme(event.target.value)} className="bg-gray-800 w-80 ml-8" />
+                <input
+                    value={theme}
+                    onChange={(event) => setTheme(event.target.value)}
+                    className="bg-gray-800 w-80 ml-8"
+                />
             </p>
             <Turnstile
                 sitekey={sitekey}
@@ -34,11 +50,9 @@ export default function Home() {
                 onLoad={() => setToken("(loading)")}
                 onError={() => setToken("an error occured")}
                 onExpire={() => setToken("token expired")}
-                onVerify={token => setToken(token)} 
+                onVerify={(token) => setToken(token)}
             />
-            <p>
-                Token: {token}
-            </p>
+            <p>Token: {token}</p>
         </div>
     );
 }
