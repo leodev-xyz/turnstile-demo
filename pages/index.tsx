@@ -46,6 +46,7 @@ export default function Home() {
                 sitekey={sitekey}
                 action={action}
                 cData={cdata}
+                /* @ts-ignore */
                 theme={theme}
                 onLoad={() => setToken("(loading)")}
                 onError={() => setToken("an error occured")}
