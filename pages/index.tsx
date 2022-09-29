@@ -9,13 +9,13 @@ export default function Home() {
     const [theme, setTheme] = useState("auto");
     const [token, setToken] = useState("(loading)");
     return (
-        <div className="--container my-20 space-y-20">
+        <div className="my-20 space-y-20 --container">
             <p>
                 Sitekey:
                 <input
                     value={sitekey}
                     onChange={(event) => setSitekey(event.target.value)}
-                    className="bg-gray-800 w-80 ml-8"
+                    className="ml-8 bg-gray-800 w-80"
                 />
             </p>
             <p>
@@ -23,7 +23,7 @@ export default function Home() {
                 <input
                     value={action}
                     onChange={(event) => setAction(event.target.value)}
-                    className="bg-gray-800 w-80 ml-8"
+                    className="ml-8 bg-gray-800 w-80"
                 />
             </p>
             <p>
@@ -31,7 +31,7 @@ export default function Home() {
                 <input
                     value={cdata}
                     onChange={(event) => setCData(event.target.value)}
-                    className="bg-gray-800 w-80 ml-8"
+                    className="ml-8 bg-gray-800 w-80"
                 />
             </p>
             <p>
@@ -39,7 +39,7 @@ export default function Home() {
                 <input
                     value={theme}
                     onChange={(event) => setTheme(event.target.value)}
-                    className="bg-gray-800 w-80 ml-8"
+                    className="ml-8 bg-gray-800 w-80"
                 />
             </p>
             <Turnstile
