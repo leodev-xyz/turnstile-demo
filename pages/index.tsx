@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import Turnstile from "@/components/turnstile";
+import Turnstile from "react-turnstile";
 
 export default function Home() {
     const [sitekey, setSitekey] = useState("1x00000000000000000000AA");
