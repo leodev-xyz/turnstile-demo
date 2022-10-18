@@ -23,11 +23,11 @@ export default function Home() {
                 </p>
                 {!/^[0-9A-Za-z_-]{3,100}$/i.test(sitekey) && (
                     <p className="text-red-300">
-                        Action should match the regex:
+                        Sitekey should match the regex:
                         <code>
                             {" /^[0-9A-Za-z_-]{3,100}$/i "}
                         </code>
-                        If the widget fails to load, it's probably because of this.
+                        If the widget fails to load, it&apos;s probably because of this.
                     </p>
                 )}
                 <div className="flex gap-2 mt-2">
@@ -67,7 +67,7 @@ export default function Home() {
                         <code>
                             {" /^[a-z0-9_-]{0,32}$/i "}
                         </code>
-                        If the widget fails to load, it's probably because of this.
+                        If the widget fails to load, it&apos;s probably because of this.
                     </p>
                 )}
             </p>
@@ -84,7 +84,7 @@ export default function Home() {
                         <code>
                             {" /^[a-z0-9_-]{0,255}$/i "}
                         </code>
-                        If the widget fails to load, it's probably because of this.
+                        If the widget fails to load, it&apos;s probably because of this.
                     </p>
                 )}
             </p>
@@ -99,8 +99,8 @@ export default function Home() {
                 </p>
                 {!["auto", "light", "dark"].includes(theme) && (
                     <p className="text-red-300">
-                        Theme should be one of "auto", "light" or "dark".
-                        If the widget fails to load, it's probably because of this.
+                        Theme should be one of &apos;auto&apos;, &apos;light&apos; or &apos;dark&apos;.
+                        If the widget fails to load, it&apos;s probably because of this.
                     </p>
                 )}
             </div>
@@ -115,8 +115,8 @@ export default function Home() {
                 </p>
                 {!["normal", "compact", "invisible"].includes(size) && (
                     <p className="text-red-300">
-                        Size should be one of "normal", "compact" or "invisible".
-                        If the widget fails to load, it's probably because of this.
+                        Size should be one of &apos;normal&apos;, &apos;compact&apos; or &apos;invisible&apos;.
+                        If the widget fails to load, it&apos;s probably because of this.
                     </p>
                 )}
             </div>
