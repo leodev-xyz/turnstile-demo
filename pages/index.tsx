@@ -124,6 +124,7 @@ export default function Home() {
                 cData={cdata}
                 /* @ts-ignore */
                 theme={theme}
+                /* @ts-ignore */
                 size={size}
                 onLoad={(widgetId) => {
                     setToken("(loading)");
