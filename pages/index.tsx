@@ -24,16 +24,13 @@ export default function Home() {
                 {!/^[0-9A-Za-z_-]{3,100}$/i.test(sitekey) && (
                     <p className="text-red-300">
                         Sitekey should match the regex:
-                        <code>
-                            {" /^[0-9A-Za-z_-]{3,100}$/i "}
-                        </code>
-                        If the widget fails to load, it&apos;s probably because of this.
+                        <code>{" /^[0-9A-Za-z_-]{3,100}$/i "}</code>
+                        If the widget fails to load, it&apos;s probably because
+                        of this.
                     </p>
                 )}
                 <div className="flex gap-2 mt-2">
-                    <span>
-                        Test sitekeys:
-                    </span>
+                    <span>Test sitekeys:</span>
                     <button
                         className="--btn --btn-0 --btn-primary"
                         onClick={() => setSitekey("1x00000000000000000000AA")}
@@ -53,7 +50,7 @@ export default function Home() {
                         Forces an interactive challenge
                     </button>
                 </div>
-              </div>
+            </div>
             <p>
                 Action:
                 <input
@@ -64,10 +61,9 @@ export default function Home() {
                 {!/^[a-z0-9_-]{0,32}$/i.test(action) && (
                     <p className="text-red-300">
                         Action should match the regex:
-                        <code>
-                            {" /^[a-z0-9_-]{0,32}$/i "}
-                        </code>
-                        If the widget fails to load, it&apos;s probably because of this.
+                        <code>{" /^[a-z0-9_-]{0,32}$/i "}</code>
+                        If the widget fails to load, it&apos;s probably because
+                        of this.
                     </p>
                 )}
             </p>
@@ -81,10 +77,9 @@ export default function Home() {
                 {!/^[a-z0-9_-]{0,255}$/i.test(cdata) && (
                     <p className="text-red-300">
                         cData should match the regex:
-                        <code>
-                            {" /^[a-z0-9_-]{0,255}$/i "}
-                        </code>
-                        If the widget fails to load, it&apos;s probably because of this.
+                        <code>{" /^[a-z0-9_-]{0,255}$/i "}</code>
+                        If the widget fails to load, it&apos;s probably because
+                        of this.
                     </p>
                 )}
             </p>
@@ -99,8 +94,9 @@ export default function Home() {
                 </p>
                 {!["auto", "light", "dark"].includes(theme) && (
                     <p className="text-red-300">
-                        Theme should be one of &apos;auto&apos;, &apos;light&apos; or &apos;dark&apos;.
-                        If the widget fails to load, it&apos;s probably because of this.
+                        Theme should be one of &apos;auto&apos;,
+                        &apos;light&apos; or &apos;dark&apos;. If the widget
+                        fails to load, it&apos;s probably because of this.
                     </p>
                 )}
             </div>
@@ -115,8 +111,10 @@ export default function Home() {
                 </p>
                 {!["normal", "compact", "invisible"].includes(size) && (
                     <p className="text-red-300">
-                        Size should be one of &apos;normal&apos;, &apos;compact&apos; or &apos;invisible&apos;.
-                        If the widget fails to load, it&apos;s probably because of this.
+                        Size should be one of &apos;normal&apos;,
+                        &apos;compact&apos; or &apos;invisible&apos;. If the
+                        widget fails to load, it&apos;s probably because of
+                        this.
                     </p>
                 )}
             </div>
@@ -127,7 +125,7 @@ export default function Home() {
                 /* @ts-ignore */
                 theme={theme}
                 size={size}
-                onLoad={widgetId => {
+                onLoad={(widgetId) => {
                     setToken("(loading)");
                     setWidgetId(widgetId);
                 }}
