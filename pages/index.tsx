@@ -280,21 +280,21 @@ const previews: Array<{
                               sitekeys.find(([skey]) => skey === sitekey)[1]
                           }`
                         : ""),
-                action && `  action="${action}",`,
-                cdata && `  cData="${cdata}",`,
-                theme !== "auto" && `  theme="${theme}",`,
-                language !== "auto" && `  language="${language}",`,
+                action && `  action="${action}"`,
+                cdata && `  cData="${cdata}"`,
+                theme !== "auto" && `  theme="${theme}"`,
+                language !== "auto" && `  language="${language}"`,
                 !responseField && `  "response-field"=${responseField}`,
                 responseField && responseFieldName !== "cf-turnstile-response" && `  "response-field-name"="${responseFieldName}"`,
-                size !== "normal" && `  size="${size}",`,
-                retry !== "auto" && `  retry="${retry}",`,
+                size !== "normal" && `  size="${size}"`,
+                retry !== "auto" && `  retry="${retry}"`,
                 retry === "auto" &&
                     retryInterval !== 8000 &&
-                    `  "retry-interval"=${retryInterval},`,
+                    `  "retry-interval"=${retryInterval}`,
                 refreshExpired !== "auto" &&
                     `  "refresh-expired"="${refreshExpired}",`,
-                appearance !== "always" && `  appearance="${appearance}",`,
-                execution !== "render" && `  execution="${execution}",`,
+                appearance !== "always" && `  appearance="${appearance}"`,
+                execution !== "render" && `  execution="${execution}"`,
                 "/>",
             ];
         },
