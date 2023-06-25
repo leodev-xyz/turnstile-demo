@@ -3,6 +3,342 @@ import { useState } from "react";
 import Turnstile from "react-turnstile";
 import { SupportedLanguages } from "turnstile-types";
 
+const sitekeys = [
+    ["1x00000000000000000000AA", "Always passes"],
+    ["1x00000000000000000000BB", "Always passes [Invisible]"],
+    ["2x00000000000000000000AB", "Always blocks"],
+    ["2x00000000000000000000BB", "Always blocks [Invisible]"],
+    ["3x00000000000000000000FF", "Forces an interactive challenge"],
+    ["0x4AAAAAAAGhYbwMOGHiaL4f", "Non-interactive sitekey"],
+    ["0x4AAAAAAAA6ulk8fhx8AjD-", "Managed sitekey"],
+    ["0x4AAAAAAAF-CtF4tL09kwFZ", "Invisible sitekey"],
+];
+
+const previews: Array<{
+    name: string;
+    render: (data: {
+        sitekey: string;
+        action: string;
+        cdata: string;
+        theme: "auto" | "dark" | "light";
+        language: SupportedLanguages | "auto";
+        responseField: boolean;
+        responseFieldName: string;
+        size: "normal" | "compact" | "invisible";
+        retry: "auto" | "never";
+        retryInterval: number;
+        refreshExpired: "auto" | "manual" | "never";
+        appearance: "always" | "execute" | "interaction-only";
+        execution: "render" | "execute";
+    }) => Array<string | false | null | undefined>;
+}> = [
+    {
+        name: "native (explicit)",
+        render: ({
+            sitekey,
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "turnstile.render(container, {",
+                `  sitekey: "${sitekey}",` +
+                    (sitekeys.some(([skey]) => skey === sitekey)
+                        ? ` /* ${
+                              sitekeys.find(([skey]) => skey === sitekey)[1]
+                          } */`
+                        : ""),
+                action && `  action: "${action}",`,
+                cdata && `  cData: "${cdata}",`,
+                theme !== "auto" && `  theme: "${theme}",`,
+                language !== "auto" && `  language: "${language}",`,
+                !responseField && `  "response-field": ${responseField}`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `  "response-field-name": "${responseFieldName}"`,
+                size !== "normal" && `  size: "${size}",`,
+                retry !== "auto" && `  retry: "${retry}",`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `  "retry-interval": ${retryInterval},`,
+                refreshExpired !== "auto" &&
+                    `  "refresh-expired": "${refreshExpired}",`,
+                appearance !== "always" && `  appearance: "${appearance}",`,
+                execution !== "render" && `  execution: "${execution}",`,
+                "});",
+                (appearance === "execute" || execution === "execute") &&
+                    "turnstile.execute(container);",
+            ];
+        },
+    },
+    {
+        name: "native (implicit)",
+        render: ({
+            sitekey,
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "<div",
+                `  class="cf-turnstile"`,
+                `  data-sitekey="${sitekey}"`,
+                action && `  data-action="${action}"`,
+                cdata && `  data-cdata="${cdata}"`,
+                theme !== "auto" && `  data-theme="${theme}"`,
+                language !== "auto" && `  data-language="${language}"`,
+                !responseField && `  data-response-field="${responseField}"`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `  data-response-field-name="${responseFieldName}"`,
+                size !== "normal" && `  data-size="${size}"`,
+                retry !== "auto" && `  data-retry="${retry}"`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `  data-retry-interval="${retryInterval}"`,
+                refreshExpired !== "auto" &&
+                    `  data-refresh-expired="${refreshExpired}"`,
+                appearance !== "always" && `  data-appearance="${appearance}"`,
+                execution !== "render" && `  data-execution="${execution}"`,
+                ">",
+                "</div>"
+            ];
+        },
+    },
+    {
+        name: "react-turnstile",
+        render: ({
+            sitekey,
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "<Turnstile",
+                `  sitekey="${sitekey}"` +
+                    (sitekeys.some(([skey]) => skey === sitekey)
+                        ? ` /* ${
+                              sitekeys.find(([skey]) => skey === sitekey)[1]
+                          } */`
+                        : ""),
+                action && `  action="${action}"`,
+                cdata && `  cData="${cdata}"`,
+                theme !== "auto" && `  theme="${theme}"`,
+                language !== "auto" && `  language="${language}"`,
+                !responseField && `  responseField={${responseField}}`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `  responseFieldName="${responseFieldName}"`,
+                size !== "normal" && `  size="${size}"`,
+                retry !== "auto" && `  retry="${retry}"`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `  retryInterval={${retryInterval}}`,
+                refreshExpired !== "auto" &&
+                    `  refreshExpired="${refreshExpired}"`,
+                appearance !== "always" && `  appearance="${appearance}"`,
+                execution !== "render" && `  execution="${execution}"`,
+                (appearance === "execute" || execution === "execute") &&
+                    "  onLoad={(_, bound) => bound.execute()}",
+                "/>",
+            ];
+        },
+    },
+    {
+        name: "@marsidev/react-turnstile",
+        render: ({
+            sitekey,
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "<Turnstile",
+                `  siteKey="${sitekey}"` +
+                    (sitekeys.some(([skey]) => skey === sitekey)
+                        ? ` /* ${
+                              sitekeys.find(([skey]) => skey === sitekey)[1]
+                          } */`
+                        : ""),
+                "  options={{",
+                action && `    action: "${action}",`,
+                cdata && `    cData: "${cdata}",`,
+                theme !== "auto" && `    theme: "${theme}",`,
+                language !== "auto" && `    language: "${language}",`,
+                !responseField && `    "response-field": ${responseField}`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `    "response-field-name": "${responseFieldName}"`,
+                size !== "normal" && `    size: "${size}",`,
+                retry !== "auto" && `    retry: "${retry}",`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `    "retry-interval": ${retryInterval},`,
+                refreshExpired !== "auto" &&
+                    `    "refresh-expired": "${refreshExpired}",`,
+                appearance !== "always" && `    appearance: "${appearance}",`,
+                execution !== "render" && `    execution: "${execution}",`,
+                "  }}",
+                "/>",
+            ];
+        },
+    },
+    {
+        name: "svelte-turnstile",
+        render: ({
+            sitekey,
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "<Turnstile",
+                `  siteKey="${sitekey}"` +
+                    (sitekeys.some(([skey]) => skey === sitekey)
+                        ? ` /* ${
+                              sitekeys.find(([skey]) => skey === sitekey)[1]
+                          } */`
+                        : ""),
+                action && `  action="${action}"`,
+                cdata && `  cData="${cdata}"`,
+                theme !== "auto" && `  theme="${theme}"`,
+                language !== "auto" && `  language="${language}"`,
+                size !== "normal" && `  size="${size}"`,
+                retry !== "auto" && `  retry="${retry}"`,
+                !responseField && `  forms={${responseField}}`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `  formsField="${responseFieldName}"`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `  retryInterval={${retryInterval}}`,
+                refreshExpired !== "auto" &&
+                    `  refreshExpired="${refreshExpired}"`,
+                appearance !== "always" && `  appearance="${appearance}"`,
+                execution !== "render" && `  execution="${execution}"`,
+                "/>",
+            ];
+        },
+    },
+    {
+        name: "phoenix-turnstile",
+        render: ({
+            sitekey,
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "<Turnstile.widget",
+                `  sitekey="${sitekey}"` +
+                    (sitekeys.some(([skey]) => skey === sitekey)
+                        ? ` # ${
+                              sitekeys.find(([skey]) => skey === sitekey)[1]
+                          }`
+                        : ""),
+                action && `  action="${action}",`,
+                cdata && `  cData="${cdata}",`,
+                theme !== "auto" && `  theme="${theme}",`,
+                language !== "auto" && `  language="${language}",`,
+                !responseField && `  "response-field"=${responseField}`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `  "response-field-name"="${responseFieldName}"`,
+                size !== "normal" && `  size="${size}",`,
+                retry !== "auto" && `  retry="${retry}",`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `  "retry-interval"=${retryInterval},`,
+                refreshExpired !== "auto" &&
+                    `  "refresh-expired"="${refreshExpired}",`,
+                appearance !== "always" && `  appearance="${appearance}",`,
+                execution !== "render" && `  execution="${execution}",`,
+                "/>",
+            ];
+        },
+    },
+    {
+        name: "silverstripe-turnstile",
+        render: ({
+            action,
+            cdata,
+            theme,
+            language,
+            responseField,
+            responseFieldName,
+            size,
+            retry,
+            retryInterval,
+            refreshExpired,
+            appearance,
+            execution,
+        }) => {
+            return [
+                "$form->enableSpamProtection()",
+                "    ->Fields()",
+                "      ->fieldByName('Captcha')",
+                action && `          ->setAttribute('data-action', '${action}')`,
+                cdata && `          ->setAttribute('data-cData', '${cdata}')`,
+                theme !== "auto" && `          ->setAttribute('data-theme', '${theme}')`,
+                language !== "auto" && `          ->setAttribute('data-language', '${language}')`,
+                !responseField && `          ->setAttribute('data-response-field', '${responseField}')`,
+                responseField && responseFieldName !== "cf-turnstile-response" && `          ->setAttribute('data-response-field-name', '${responseFieldName}')`,
+                size !== "normal" && `          ->setAttribute('data-size', '${size}')`,
+                retry !== "auto" && `          ->setAttribute('data-retry', '${retry}')`,
+                retry === "auto" &&
+                    retryInterval !== 8000 &&
+                    `          ->setAttribute('data-retry-interval', '${retryInterval}')`,
+                refreshExpired !== "auto" &&
+                    `          ->setAttribute('data-refresh-expired', '${refreshExpired}')`,
+                appearance !== "always" && `          ->setAttribute('data-appearance', '${appearance}')`,
+                execution !== "render" && `          ->setAttribute('data-execution', '${execution}')`,
+            ];
+        },
+    }
+];
+
 export default function Home() {
     const [sitekey, setSitekey] = useState("1x00000000000000000000AA");
     const [action, setAction] = useState("demo");
@@ -11,6 +347,8 @@ export default function Home() {
     const [language, setLanguage] = useState<SupportedLanguages | "auto">(
         "auto"
     );
+    const [responseField, setResponseField] = useState(true);
+    const [responseFieldName, setResponseFieldName] = useState("cf-turnstile-response");
     const [size, setSize] = useState<"normal" | "compact" | "invisible">(
         "normal"
     );
@@ -29,16 +367,6 @@ export default function Home() {
     const [tab, setTab] = useState(0);
 
     const componentClass = "mx-8 bg-gray-800 w-80 px-2 py-0.5 rounded";
-    const sitekeys = [
-        ["1x00000000000000000000AA", "Always passes"],
-        ["1x00000000000000000000BB", "Always passes [Invisible]"],
-        ["2x00000000000000000000AB", "Always blocks"],
-        ["2x00000000000000000000BB", "Always blocks [Invisible]"],
-        ["3x00000000000000000000FF", "Forces an interactive challenge"],
-        ["0x4AAAAAAAGhYbwMOGHiaL4f", "Non-interactive sitekey"],
-        ["0x4AAAAAAAA6ulk8fhx8AjD-", "Managed sitekey"],
-        ["0x4AAAAAAAF-CtF4tL09kwFZ", "Invisible sitekey"],
-    ];
     return (
         <div className="my-20 space-y-10 --container">
             <div>
@@ -167,6 +495,27 @@ export default function Home() {
                     </select>
                 </div>
                 <div>
+                    Response field (Form):
+                    <input
+                        type="checkbox"
+                        checked={responseField}
+                        onChange={() => {
+                            setResponseField(!responseField);
+                        }}
+                        className="ml-8 scale-150"
+                    />
+                </div>
+                {responseField && (
+                    <div>
+                        Response field name:
+                        <input
+                            value={responseFieldName}
+                            onChange={(event) => setResponseFieldName(event.target.value)}
+                            className={componentClass}
+                        />
+                    </div>
+                )}
+                <div>
                     Size:
                     <select
                         onChange={(event) => {
@@ -273,6 +622,8 @@ export default function Home() {
                 cData={cdata}
                 theme={theme}
                 language={language}
+                responseField={responseField}
+                responseFieldName={responseFieldName}
                 size={size}
                 retry={retry}
                 retryInterval={retryInterval}
@@ -324,83 +675,36 @@ export default function Home() {
                 </p>
             </div>
             <pre className="px-4 py-2 bg-gray-800">
-                <div className="flex gap-2 mb-8 border-b border-black">
-                    {["react-turnstile", "direct"].map((name, idx) => (
+                <div className="flex flex-wrap gap-2 mb-8 border-b border-black">
+                    {previews.map((name, idx) => (
                         <button
                             className={`px-2 hover:bg-gray-500${
                                 tab === idx ? " bg-black" : ""
                             }`}
                             onClick={() => setTab(idx)}
-                            key={name}
+                            key={name.name}
                         >
-                            {name}
+                            {name.name}
                         </button>
                     ))}
                 </div>
                 <code>
-                    {(tab === 0
-                        ? [
-                              "<Turnstile",
-                              `  sitekey="${sitekey}"` +
-                                  (sitekeys.some(([skey]) => skey === sitekey)
-                                      ? ` /* ${
-                                            sitekeys.find(
-                                                ([skey]) => skey === sitekey
-                                            )[1]
-                                        } */`
-                                      : ""),
-                              action && `  action="${action}"`,
-                              cdata && `  cData="${cdata}"`,
-                              theme !== "auto" && `  theme="${theme}"`,
-                              language !== "auto" && `  language="${language}"`,
-                              size !== "normal" && `  size="${size}"`,
-                              retry !== "auto" && `  retry="${retry}"`,
-                              retry === "auto" &&
-                                  retryInterval !== 8000 &&
-                                  `  retryInterval={${retryInterval}}`,
-                              refreshExpired !== "auto" &&
-                                  `  refreshExpired="${refreshExpired}"`,
-                              appearance !== "always" &&
-                                  `  appearance="${appearance}"`,
-                              execution !== "render" &&
-                                  `  execution="${execution}"`,
-                              (appearance === "execute" ||
-                                  execution === "execute") &&
-                                  "  onLoad={(_, bound) => bound.execute()}",
-                              "/>",
-                          ]
-                        : [
-                              "turnstile.render(container, {",
-                              `  sitekey: "${sitekey}",` +
-                                  (sitekeys.some(([skey]) => skey === sitekey)
-                                      ? ` /* ${
-                                            sitekeys.find(
-                                                ([skey]) => skey === sitekey
-                                            )[1]
-                                        } */`
-                                      : ""),
-                              action && `  action: "${action}",`,
-                              cdata && `  cData: "${cdata}",`,
-                              theme !== "auto" && `  theme: "${theme}",`,
-                              language !== "auto" &&
-                                  `  language: "${language}",`,
-                              size !== "normal" && `  size: "${size}",`,
-                              retry !== "auto" && `  retry: "${retry}",`,
-                              retry === "auto" &&
-                                  retryInterval !== 8000 &&
-                                  `  retryInterval: ${retryInterval},`,
-                              refreshExpired !== "auto" &&
-                                  `  refreshExpired: "${refreshExpired}",`,
-                              appearance !== "always" &&
-                                  `  appearance: "${appearance}",`,
-                              execution !== "render" &&
-                                  `  execution: "${execution}",`,
-                              "});",
-                              (appearance === "execute" ||
-                                  execution === "execute") &&
-                                  "turnstile.execute(container);",
-                          ]
-                    )
+                    {previews[tab]
+                        .render({
+                            sitekey,
+                            action,
+                            cdata,
+                            theme,
+                            language,
+                            responseField,
+                            responseFieldName,
+                            size,
+                            retry,
+                            retryInterval,
+                            refreshExpired,
+                            appearance,
+                            execution,
+                        })
                         .filter((x) => x)
                         .join("\n")}
                 </code>
