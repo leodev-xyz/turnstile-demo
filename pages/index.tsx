@@ -8,12 +8,20 @@ export default function Home() {
     const [action, setAction] = useState("demo");
     const [cdata, setCData] = useState("customerdata");
     const [theme, setTheme] = useState<"light" | "dark" | "auto">("auto");
-    const [language, setLanguage] = useState<SupportedLanguages | "auto">("auto");
-    const [size, setSize] = useState<"normal" | "compact" | "invisible">("normal");
+    const [language, setLanguage] = useState<SupportedLanguages | "auto">(
+        "auto"
+    );
+    const [size, setSize] = useState<"normal" | "compact" | "invisible">(
+        "normal"
+    );
     const [retry, setRetry] = useState<"auto" | "never">("auto");
     const [retryInterval, setRetryInterval] = useState(8000);
-    const [refreshExpired, setRefreshExpired] = useState<"auto" | "manual" | "never">("auto");
-    const [appearance, setAppearance] = useState<"always" | "execute" | "interaction-only">("always");
+    const [refreshExpired, setRefreshExpired] = useState<
+        "auto" | "manual" | "never"
+    >("auto");
+    const [appearance, setAppearance] = useState<
+        "always" | "execute" | "interaction-only"
+    >("always");
     const [execution, setExecution] = useState<"render" | "execute">("render");
 
     const [token, setToken] = useState("(loading)");
@@ -30,7 +38,7 @@ export default function Home() {
         ["0x4AAAAAAAGhYbwMOGHiaL4f", "Non-interactive sitekey"],
         ["0x4AAAAAAAA6ulk8fhx8AjD-", "Managed sitekey"],
         ["0x4AAAAAAAF-CtF4tL09kwFZ", "Invisible sitekey"],
-    ]
+    ];
     return (
         <div className="my-20 space-y-10 --container">
             <div>
@@ -43,7 +51,8 @@ export default function Home() {
                     />
                     {!sitekeys.some(([skey]) => skey === sitekey) && (
                         <p className="text-red-300">
-                            Unknown sitekey. If it fails to load, make sure {location.hostname} is added the Domain list.
+                            Unknown sitekey. If it fails to load, make sure{" "}
+                            {location.hostname} is added the Domain list.
                         </p>
                     )}
                 </p>
@@ -64,7 +73,9 @@ export default function Home() {
                         className={componentClass}
                     >
                         {sitekeys.map(([sitekey, name]) => (
-                            <option value={sitekey}>{name}</option>
+                            <option key={sitekey} value={sitekey}>
+                                {name}
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -81,8 +92,8 @@ export default function Home() {
                         <p className="text-red-300">
                             Action should match the regex:
                             <code>{" /^[a-z0-9_-]{0,32}$/i "}</code>
-                            If the widget fails to load, it&apos;s probably because
-                            of this.
+                            If the widget fails to load, it&apos;s probably
+                            because of this.
                         </p>
                     )}
                 </p>
@@ -97,8 +108,8 @@ export default function Home() {
                         <p className="text-red-300">
                             cData should match the regex:
                             <code>{" /^[a-z0-9_-]{0,255}$/i "}</code>
-                            If the widget fails to load, it&apos;s probably because
-                            of this.
+                            If the widget fails to load, it&apos;s probably
+                            because of this.
                         </p>
                     )}
                 </p>
@@ -106,7 +117,9 @@ export default function Home() {
                     Theme:
                     <select
                         onChange={(event) => {
-                            setTheme(event.target.value as "light" | "dark" | "auto");
+                            setTheme(
+                                event.target.value as "light" | "dark" | "auto"
+                            );
                         }}
                         className={componentClass}
                     >
@@ -119,13 +132,37 @@ export default function Home() {
                     Language:
                     <select
                         onChange={(event) => {
-                            setLanguage(event.target.value as "auto" | SupportedLanguages);
+                            setLanguage(
+                                event.target.value as
+                                    | "auto"
+                                    | SupportedLanguages
+                            );
                         }}
                         className={componentClass}
                     >
                         <option value="auto">Auto</option>
-                        {["ar-eg", "de", "en", "es", "fa", "fr", "id", "it", "ja", "ko", "nl", "pl", "pt-br", "ru", "tr", "zh-cn", "zh-tw"].map(x => (
-                            <option value={x}>{x}</option>
+                        {[
+                            "ar-eg",
+                            "de",
+                            "en",
+                            "es",
+                            "fa",
+                            "fr",
+                            "id",
+                            "it",
+                            "ja",
+                            "ko",
+                            "nl",
+                            "pl",
+                            "pt-br",
+                            "ru",
+                            "tr",
+                            "zh-cn",
+                            "zh-tw",
+                        ].map((x) => (
+                            <option key={x} value={x}>
+                                {x}
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -133,13 +170,20 @@ export default function Home() {
                     Size:
                     <select
                         onChange={(event) => {
-                            setSize(event.target.value as "normal" | "compact" | "invisible");
+                            setSize(
+                                event.target.value as
+                                    | "normal"
+                                    | "compact"
+                                    | "invisible"
+                            );
                         }}
                         className={componentClass}
                     >
                         <option value="normal">Normal</option>
                         <option value="compact">Compact</option>
-                        <option value="invisible">Invisible (recaptcha compat)</option>
+                        <option value="invisible">
+                            Invisible (recaptcha compat)
+                        </option>
                     </select>
                 </div>
                 <div>
@@ -174,7 +218,12 @@ export default function Home() {
                     Refresh Expired:
                     <select
                         onChange={(event) => {
-                            setRefreshExpired(event.target.value as "auto" | "manual" | "never");
+                            setRefreshExpired(
+                                event.target.value as
+                                    | "auto"
+                                    | "manual"
+                                    | "never"
+                            );
                         }}
                         className={componentClass}
                     >
@@ -187,20 +236,29 @@ export default function Home() {
                     Appearance:
                     <select
                         onChange={(event) => {
-                            setAppearance(event.target.value as "always" | "execute" | "interaction-only");
+                            setAppearance(
+                                event.target.value as
+                                    | "always"
+                                    | "execute"
+                                    | "interaction-only"
+                            );
                         }}
                         className={componentClass}
                     >
                         <option value="always">Always</option>
                         <option value="execute">Execute</option>
-                        <option value="interaction-only">Interaction Only</option>
+                        <option value="interaction-only">
+                            Interaction Only
+                        </option>
                     </select>
                 </div>
                 <div>
                     Execution:
                     <select
                         onChange={(event) => {
-                            setExecution(event.target.value as "render" | "execute");
+                            setExecution(
+                                event.target.value as "render" | "execute"
+                            );
                         }}
                         className={componentClass}
                     >
@@ -221,7 +279,6 @@ export default function Home() {
                 refreshExpired={refreshExpired}
                 appearance={appearance}
                 execution={execution}
-
                 onLoad={(widgetId) => {
                     setToken("(loading)");
                     setWidgetId(widgetId);
@@ -233,7 +290,6 @@ export default function Home() {
                     setToken("token expired");
                 }}
                 onVerify={(token) => setToken(token)}
-
                 fixedSize={true}
                 className="bg-gray-800"
             />
@@ -244,10 +300,14 @@ export default function Home() {
                     Actions:
                     <button
                         className="--btn --btn-0 --btn-primary"
-                        onClick={() =>{
+                        onClick={() => {
                             window.turnstile.execute(widgetId);
                         }}
-                        disabled={!widgetId || (execution !== "execute" && appearance !== "execute")}
+                        disabled={
+                            !widgetId ||
+                            (execution !== "execute" &&
+                                appearance !== "execute")
+                        }
                     >
                         Execute
                     </button>
@@ -267,51 +327,82 @@ export default function Home() {
                 <div className="flex gap-2 mb-8 border-b border-black">
                     {["react-turnstile", "direct"].map((name, idx) => (
                         <button
-                            className={`px-2 hover:bg-gray-500${tab === idx ? " bg-black" : ""}`}
+                            className={`px-2 hover:bg-gray-500${
+                                tab === idx ? " bg-black" : ""
+                            }`}
                             onClick={() => setTab(idx)}
+                            key={name}
                         >
                             {name}
                         </button>
                     ))}
                 </div>
                 <code>
-                    {(
-                        tab === 0 ? (
-                            [
-                                "<Turnstile",
-                                `  sitekey="${sitekey}"` + (sitekeys.some(([skey]) => skey === sitekey) ? ` /* ${sitekeys.find(([skey]) => skey === sitekey)[1]} */` : ""),
-                                action && `  action="${action}"`,
-                                cdata && `  cData="${cdata}"`,
-                                theme !== "auto" && `  theme="${theme}"`,
-                                language !== "auto" && `  language="${language}"`,
-                                size !== "normal" && `  size="${size}"`,
-                                retry !== "auto" && `  retry="${retry}"`,
-                                retry === "auto" && retryInterval !== 8000 && `  retryInterval={${retryInterval}}`,
-                                refreshExpired !== "auto" && `  refreshExpired="${refreshExpired}"`,
-                                appearance !== "always" && `  appearance="${appearance}"`,
-                                execution !== "render" && `  execution="${execution}"`,
-                                (appearance === "execute" || execution === "execute") && "  onLoad={(_, bound) => bound.execute()}",
-                                "/>",
-                            ]
-                        ) : (
-                            [
-                                "turnstile.render(container, {",
-                                `  sitekey: "${sitekey}",` + (sitekeys.some(([skey]) => skey === sitekey) ? ` /* ${sitekeys.find(([skey]) => skey === sitekey)[1]} */` : ""),
-                                action && `  action: "${action}",`,
-                                cdata && `  cData: "${cdata}",`,
-                                theme !== "auto" && `  theme: "${theme}",`,
-                                language !== "auto" && `  language: "${language}",`,
-                                size !== "normal" && `  size: "${size}",`,
-                                retry !== "auto" && `  retry: "${retry}",`,
-                                retry === "auto" && retryInterval !== 8000 && `  retryInterval: ${retryInterval},`,
-                                refreshExpired !== "auto" && `  refreshExpired: "${refreshExpired}",`,
-                                appearance !== "always" && `  appearance: "${appearance}",`,
-                                execution !== "render" && `  execution: "${execution}",`,
-                                "});",
-                                (appearance === "execute" || execution === "execute") && "turnstile.execute(container);",
-                            ]
-                        )
-                    ).filter(x => x).join("\n")}
+                    {(tab === 0
+                        ? [
+                              "<Turnstile",
+                              `  sitekey="${sitekey}"` +
+                                  (sitekeys.some(([skey]) => skey === sitekey)
+                                      ? ` /* ${
+                                            sitekeys.find(
+                                                ([skey]) => skey === sitekey
+                                            )[1]
+                                        } */`
+                                      : ""),
+                              action && `  action="${action}"`,
+                              cdata && `  cData="${cdata}"`,
+                              theme !== "auto" && `  theme="${theme}"`,
+                              language !== "auto" && `  language="${language}"`,
+                              size !== "normal" && `  size="${size}"`,
+                              retry !== "auto" && `  retry="${retry}"`,
+                              retry === "auto" &&
+                                  retryInterval !== 8000 &&
+                                  `  retryInterval={${retryInterval}}`,
+                              refreshExpired !== "auto" &&
+                                  `  refreshExpired="${refreshExpired}"`,
+                              appearance !== "always" &&
+                                  `  appearance="${appearance}"`,
+                              execution !== "render" &&
+                                  `  execution="${execution}"`,
+                              (appearance === "execute" ||
+                                  execution === "execute") &&
+                                  "  onLoad={(_, bound) => bound.execute()}",
+                              "/>",
+                          ]
+                        : [
+                              "turnstile.render(container, {",
+                              `  sitekey: "${sitekey}",` +
+                                  (sitekeys.some(([skey]) => skey === sitekey)
+                                      ? ` /* ${
+                                            sitekeys.find(
+                                                ([skey]) => skey === sitekey
+                                            )[1]
+                                        } */`
+                                      : ""),
+                              action && `  action: "${action}",`,
+                              cdata && `  cData: "${cdata}",`,
+                              theme !== "auto" && `  theme: "${theme}",`,
+                              language !== "auto" &&
+                                  `  language: "${language}",`,
+                              size !== "normal" && `  size: "${size}",`,
+                              retry !== "auto" && `  retry: "${retry}",`,
+                              retry === "auto" &&
+                                  retryInterval !== 8000 &&
+                                  `  retryInterval: ${retryInterval},`,
+                              refreshExpired !== "auto" &&
+                                  `  refreshExpired: "${refreshExpired}",`,
+                              appearance !== "always" &&
+                                  `  appearance: "${appearance}",`,
+                              execution !== "render" &&
+                                  `  execution: "${execution}",`,
+                              "});",
+                              (appearance === "execute" ||
+                                  execution === "execute") &&
+                                  "turnstile.execute(container);",
+                          ]
+                    )
+                        .filter((x) => x)
+                        .join("\n")}
                 </code>
             </pre>
         </div>
