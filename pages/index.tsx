@@ -645,7 +645,8 @@ export default function Home() {
                 className="bg-gray-800"
             />
             <div>
-                <p>Token: {token}</p>
+                <p>Token:</p>
+                <p className="h-20 px-4 py-2 overflow-auto bg-gray-800 rounded">{token}</p>
                 <p>WidgetId: {widgetId}</p>
                 <p className="flex gap-4 mt-4">
                     Actions:
@@ -674,7 +675,7 @@ export default function Home() {
                     </button>
                 </p>
             </div>
-            <pre className="px-4 py-2 bg-gray-800">
+            <pre className="px-4 py-2 bg-gray-800 rounded">
                 <div className="flex flex-wrap gap-2 mb-8 border-b border-black">
                     {previews.map((name, idx) => (
                         <button
