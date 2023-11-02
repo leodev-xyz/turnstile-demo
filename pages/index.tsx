@@ -340,7 +340,7 @@ const previews: Array<{
 ];
 
 export default function Home() {
-    const [sitekey, setSitekey] = useState("1x00000000000000000000AA");
+    const [sitekey, setSitekey] = useState("0x4AAAAAAAA6ulk8fhx8AjD-");
     const [action, setAction] = useState("demo");
     const [cdata, setCData] = useState("customerdata");
     const [theme, setTheme] = useState<"light" | "dark" | "auto">("auto");
