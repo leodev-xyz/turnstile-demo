@@ -62,7 +62,9 @@ const previews: Array<{
                 theme !== "auto" && `  theme: "${theme}",`,
                 language !== "auto" && `  language: "${language}",`,
                 !responseField && `  "response-field": ${responseField}`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `  "response-field-name": "${responseFieldName}"`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `  "response-field-name": "${responseFieldName}"`,
                 size !== "normal" && `  size: "${size}",`,
                 retry !== "auto" && `  retry: "${retry}",`,
                 retry === "auto" &&
@@ -104,7 +106,9 @@ const previews: Array<{
                 theme !== "auto" && `  data-theme="${theme}"`,
                 language !== "auto" && `  data-language="${language}"`,
                 !responseField && `  data-response-field="${responseField}"`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `  data-response-field-name="${responseFieldName}"`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `  data-response-field-name="${responseFieldName}"`,
                 size !== "normal" && `  data-size="${size}"`,
                 retry !== "auto" && `  data-retry="${retry}"`,
                 retry === "auto" &&
@@ -115,7 +119,7 @@ const previews: Array<{
                 appearance !== "always" && `  data-appearance="${appearance}"`,
                 execution !== "render" && `  data-execution="${execution}"`,
                 ">",
-                "</div>"
+                "</div>",
             ];
         },
     },
@@ -149,7 +153,9 @@ const previews: Array<{
                 theme !== "auto" && `  theme="${theme}"`,
                 language !== "auto" && `  language="${language}"`,
                 !responseField && `  responseField={${responseField}}`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `  responseFieldName="${responseFieldName}"`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `  responseFieldName="${responseFieldName}"`,
                 size !== "normal" && `  size="${size}"`,
                 retry !== "auto" && `  retry="${retry}"`,
                 retry === "auto" &&
@@ -196,7 +202,9 @@ const previews: Array<{
                 theme !== "auto" && `    theme: "${theme}",`,
                 language !== "auto" && `    language: "${language}",`,
                 !responseField && `    "response-field": ${responseField}`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `    "response-field-name": "${responseFieldName}"`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `    "response-field-name": "${responseFieldName}"`,
                 size !== "normal" && `    size: "${size}",`,
                 retry !== "auto" && `    retry: "${retry}",`,
                 retry === "auto" &&
@@ -243,7 +251,9 @@ const previews: Array<{
                 size !== "normal" && `  size="${size}"`,
                 retry !== "auto" && `  retry="${retry}"`,
                 !responseField && `  forms={${responseField}}`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `  formsField="${responseFieldName}"`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `  formsField="${responseFieldName}"`,
                 retry === "auto" &&
                     retryInterval !== 8000 &&
                     `  retryInterval={${retryInterval}}`,
@@ -276,16 +286,16 @@ const previews: Array<{
                 "<Turnstile.widget",
                 `  sitekey="${sitekey}"` +
                     (sitekeys.some(([skey]) => skey === sitekey)
-                        ? ` # ${
-                              sitekeys.find(([skey]) => skey === sitekey)[1]
-                          }`
+                        ? ` # ${sitekeys.find(([skey]) => skey === sitekey)[1]}`
                         : ""),
                 action && `  action="${action}"`,
                 cdata && `  cData="${cdata}"`,
                 theme !== "auto" && `  theme="${theme}"`,
                 language !== "auto" && `  language="${language}"`,
                 !responseField && `  "response-field"=${responseField}`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `  "response-field-name"="${responseFieldName}"`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `  "response-field-name"="${responseFieldName}"`,
                 size !== "normal" && `  size="${size}"`,
                 retry !== "auto" && `  retry="${retry}"`,
                 retry === "auto" &&
@@ -319,24 +329,34 @@ const previews: Array<{
                 "$form->enableSpamProtection()",
                 "    ->Fields()",
                 "      ->fieldByName('Captcha')",
-                action && `          ->setAttribute('data-action', '${action}')`,
+                action &&
+                    `          ->setAttribute('data-action', '${action}')`,
                 cdata && `          ->setAttribute('data-cData', '${cdata}')`,
-                theme !== "auto" && `          ->setAttribute('data-theme', '${theme}')`,
-                language !== "auto" && `          ->setAttribute('data-language', '${language}')`,
-                !responseField && `          ->setAttribute('data-response-field', '${responseField}')`,
-                responseField && responseFieldName !== "cf-turnstile-response" && `          ->setAttribute('data-response-field-name', '${responseFieldName}')`,
-                size !== "normal" && `          ->setAttribute('data-size', '${size}')`,
-                retry !== "auto" && `          ->setAttribute('data-retry', '${retry}')`,
+                theme !== "auto" &&
+                    `          ->setAttribute('data-theme', '${theme}')`,
+                language !== "auto" &&
+                    `          ->setAttribute('data-language', '${language}')`,
+                !responseField &&
+                    `          ->setAttribute('data-response-field', '${responseField}')`,
+                responseField &&
+                    responseFieldName !== "cf-turnstile-response" &&
+                    `          ->setAttribute('data-response-field-name', '${responseFieldName}')`,
+                size !== "normal" &&
+                    `          ->setAttribute('data-size', '${size}')`,
+                retry !== "auto" &&
+                    `          ->setAttribute('data-retry', '${retry}')`,
                 retry === "auto" &&
                     retryInterval !== 8000 &&
                     `          ->setAttribute('data-retry-interval', '${retryInterval}')`,
                 refreshExpired !== "auto" &&
                     `          ->setAttribute('data-refresh-expired', '${refreshExpired}')`,
-                appearance !== "always" && `          ->setAttribute('data-appearance', '${appearance}')`,
-                execution !== "render" && `          ->setAttribute('data-execution', '${execution}')`,
+                appearance !== "always" &&
+                    `          ->setAttribute('data-appearance', '${appearance}')`,
+                execution !== "render" &&
+                    `          ->setAttribute('data-execution', '${execution}')`,
             ];
         },
-    }
+    },
 ];
 
 export default function Home() {
@@ -348,7 +368,9 @@ export default function Home() {
         "auto"
     );
     const [responseField, setResponseField] = useState(true);
-    const [responseFieldName, setResponseFieldName] = useState("cf-turnstile-response");
+    const [responseFieldName, setResponseFieldName] = useState(
+        "cf-turnstile-response"
+    );
     const [size, setSize] = useState<"normal" | "compact" | "invisible">(
         "normal"
     );
@@ -510,7 +532,9 @@ export default function Home() {
                         Response field name:
                         <input
                             value={responseFieldName}
-                            onChange={(event) => setResponseFieldName(event.target.value)}
+                            onChange={(event) =>
+                                setResponseFieldName(event.target.value)
+                            }
                             className={componentClass}
                         />
                     </div>
@@ -646,7 +670,9 @@ export default function Home() {
             />
             <div>
                 <p>Token:</p>
-                <p className="h-20 px-4 py-2 overflow-auto bg-gray-800 rounded">{token}</p>
+                <p className="h-20 px-4 py-2 overflow-auto bg-gray-800 rounded">
+                    {token}
+                </p>
                 <p>WidgetId: {widgetId}</p>
                 <p className="flex gap-4 mt-4">
                     Actions:
