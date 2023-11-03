@@ -421,9 +421,13 @@ export default function Home() {
                             setSitekey(event.target.value);
                         }}
                         className={componentClass}
+                        value={sitekey}
                     >
-                        {sitekeys.map(([sitekey, name]) => (
-                            <option key={sitekey} value={sitekey}>
+                        {sitekeys.map(([templateSitekey, name]) => (
+                            <option
+                                key={templateSitekey}
+                                value={templateSitekey}
+                            >
                                 {name}
                             </option>
                         ))}
