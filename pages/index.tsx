@@ -4,14 +4,15 @@ import Turnstile from "react-turnstile";
 import { SupportedLanguages } from "turnstile-types";
 
 const sitekeys = [
-    ["1x00000000000000000000AA", "Always passes"],
-    ["1x00000000000000000000BB", "Always passes [Invisible]"],
-    ["2x00000000000000000000AB", "Always blocks"],
-    ["2x00000000000000000000BB", "Always blocks [Invisible]"],
-    ["3x00000000000000000000FF", "Forces an interactive challenge"],
-    ["0x4AAAAAAAGhYbwMOGHiaL4f", "Non-interactive sitekey"],
-    ["0x4AAAAAAAA6ulk8fhx8AjD-", "Managed sitekey"],
-    ["0x4AAAAAAAF-CtF4tL09kwFZ", "Invisible sitekey"],
+	["1x00000000000000000000AA", "Always passes"],
+	["1x00000000000000000000BB", "Always passes [Invisible]"],
+	["2x00000000000000000000AB", "Always blocks"],
+	["2x00000000000000000000BB", "Always blocks [Invisible]"],
+	["3x00000000000000000000FF", "Forces an interactive challenge"],
+	["0x4AAAAAAAGhYbwMOGHiaL4f", "Non-interactive sitekey"],
+	["0x4AAAAAAAA6ulk8fhx8AjD-", "Managed sitekey"],
+	["0x4AAAAAAAF-CtF4tL09kwFZ", "Invisible sitekey"],
+	["0x4AAAAAAABiooHVKGrVwYGO", "Managed sitekey (Off-label)"],
 ];
 
 const previews: Array<{
